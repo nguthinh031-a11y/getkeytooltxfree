@@ -3,343 +3,1044 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Văn Vinh chính thức bỏ học cấp tốc vì 'nghiện gem' xuyên màn đêm: Tương lai nào cho game thủ vàng trong làng trốn lớp?</title>
+    <title>AnimeShop VIP - Thế Giới Đồ Chơi & Manga</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --vnexpress-red: #900;
-            --vnexpress-gray: #666;
-            --vnexpress-light-gray: #f8f9fa;
-            --border-color: #e5e5e5;
-            --text-main: #222;
+        body { font-family: 'Quicksand', sans-serif; }
+        .hero-banner {
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+            border-radius: 1.5rem;
         }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: var(--text-main);
-            background-color: #fff;
-            line-height: 1.6;
-        }
-
-        /* Top Bar */
-        .top-bar {
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px 0;
-            font-size: 13px;
-            color: var(--vnexpress-gray);
-        }
-
-        .container {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Header / Navigation */
-        .main-header {
-            border-bottom: 2px solid var(--vnexpress-red);
-            padding: 15px 0;
-        }
-
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--vnexpress-red);
-            text-transform: lowercase;
-            letter-spacing: -1px;
-            font-family: Georgia, serif;
-        }
-
-        .sub-nav {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .sub-nav a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .sub-nav a:hover {
-            color: var(--vnexpress-red);
-        }
-
-        /* Main Content Layout */
-        .article-layout {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 30px;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 768px) {
-            .article-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Article Main */
-        .category-path {
-            font-size: 13px;
-            color: var(--vnexpress-red);
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .article-title {
-            font-size: 32px;
-            font-weight: bold;
-            line-height: 1.3;
-            margin-bottom: 15px;
-            color: #111;
-        }
-
-        .article-sapo {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .article-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: var(--vnexpress-gray);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .author {
-            font-weight: bold;
-            color: #222;
-        }
-
-        /* Content Typography */
-        .article-body p {
-            margin-bottom: 20px;
-            font-size: 17px;
-            text-align: justify;
-        }
-
-        .article-body h2 {
-            font-size: 20px;
-            margin: 25px 0 15px;
-            color: #111;
-        }
-
-        .quote-box {
-            border-left: 3px solid var(--vnexpress-red);
-            padding-left: 20px;
-            margin: 25px 0;
-            font-style: italic;
-            color: #444;
-            font-size: 18px;
-            background: var(--vnexpress-light-gray);
-            padding: 15px 20px;
-        }
-
-        .article-image {
-            margin: 25px 0;
-            text-align: center;
-        }
-
-        .article-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-
-        .image-caption {
-            font-size: 13px;
-            color: var(--vnexpress-gray);
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* Author Bio / Tag */
-        .article-tags {
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-            font-size: 14px;
-        }
-
-        .tag {
-            display: inline-block;
-            background: var(--vnexpress-light-gray);
-            padding: 5px 12px;
-            border-radius: 3px;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            color: #333;
-            text-decoration: none;
-            border: 1px solid #ddd;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            border-left: 1px solid var(--border-color);
-            padding-left: 25px;
-        }
-
-        .sidebar-title {
-            font-size: 16px;
-            font-weight: bold;
-            border-bottom: 2px solid #333;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .sidebar-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .sidebar-item a {
-            text-decoration: none;
-            color: #222;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .sidebar-item a:hover {
-            color: var(--vnexpress-red);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 50px;
-            background-color: var(--vnexpress-light-gray);
-            border-top: 1px solid var(--border-color);
-            padding: 30px 0;
-            font-size: 13px;
-            color: var(--vnexpress-gray);
-            text-align: center;
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-gray-800 antialiased">
 
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <div>Thứ Tư, 2/9/2026 | Thời sự thế giới & Đời sống</div>
-            <div>RSS | Liên hệ tòa soạn</div>
-        </div>
-    </div>
+    <!-- Hiệu Ứng Tuyết Rơi Không Lag -->
+    <canvas id="snow-canvas"></canvas>
 
-    <header class="main-header">
-        <div class="container header-flex">
-            <div class="logo">VnExpress Fake</div>
-            <div class="sub-nav">
-                <a href="#">Tin nhanh</a>
-                <a href="#">Góc nhìn</a>
-                <a href="#">Đời sống</a>
-                <a href="#">Giải trí</a>
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('home')">
+                    <span class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">🌸 AnimeShop</span>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <button onclick="showSection('home')" class="font-bold text-gray-600 hover:text-pink-500 transition">Trang Chủ</button>
+                    <button onclick="showSection('shop')" class="font-bold text-gray-600 hover:text-pink-500 transition">Cửa Hàng</button>
+                    <button onclick="showSection('deposit')" class="font-bold text-pink-600 transition bg-pink-50 px-3.5 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5"><i class="fa-solid fa-wallet text-pink-500"></i> Nạp Tiền</button>
+                    <button onclick="showSection('history')" class="font-bold text-gray-600 hover:text-pink-500 transition">Đơn Hàng</button>
+                    <div id="admin-nav-link" class="hidden">
+                        <button onclick="showSection('admin')" class="font-bold text-purple-600 hover:text-purple-700 transition flex items-center gap-1"><i class="fa-solid fa-shield-halved"></i> Quản Trị</button>
+                    </div>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center space-x-3">
+                    <div id="wallet-badge" class="hidden bg-pink-50 border border-pink-200 text-pink-600 px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-extrabold shadow-sm items-center gap-1.5">
+                        <i class="fa-solid fa-wallet"></i> <span id="user-balance">0</span>đ
+                    </div>
+
+                    <button onclick="showSection('cart')" class="relative text-gray-700 hover:text-pink-500 p-2.5 bg-gray-100 rounded-2xl transition">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+
+                    <div id="auth-menu" class="hidden md:block">
+                        <button onclick="showSection('login')" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-5 py-2.5 rounded-2xl font-extrabold shadow-lg shadow-pink-200 hover:opacity-90 transition text-sm">Đăng Nhập</button>
+                    </div>
+
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-700 hover:text-pink-500 p-2.5 bg-gray-100 rounded-2xl transition">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <div class="container">
-        <div class="article-layout">
-            
-            <main>
-                <div class="category-path">Đời sống &rsaquo; Nhịp sống trẻ</div>
-                
-                <h1 class="article-title">Văn Vinh chính thức bỏ học cấp tốc vì 'nghiện gem' xuyên màn đêm: Tương lai nào cho game thủ vàng trong làng trốn lớp?</h1>
-                
-                <div class="article-sapo">
-                    Quyết định tạm biệt ghế nhà trường để bước vào con đường "tu luyện" game chuyên nghiệp của nam sinh Văn Vinh đang khiến gia đình lẫn hội bạn thân được một phen chấn động toàn tập.
-                </div>
-
-                <div class="article-meta">
-                    <div>Bởi: <span class="author">Nhóm Phóng Viên Hot Trend</span> &bull; Cập nhật: 02/09/2026 20:30</div>
-                    <div>💬 142 Bình luận</div>
-                </div>
-
-                <div class="article-body">
-                    <p>Những ngày qua, mạng xã hội liên tục xôn xao trước câu chuyện đầy kịch tính xoay quanh nhân vật đình đám mang tên <strong>Văn Vinh</strong>. Thay vì chăm chỉ đến lớp ôn bài luyện chữ như bao bạn bè đồng trang lứa, nam sinh này đã đưa ra một quyết định táo bạo chưa từng có: chính thức từ bỏ con đường học vấn để toàn tâm toàn ý theo đuổi đam mê... "gem" (game) của cuộc đời mình.</p>
-
-                    <div class="article-image">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Game thủ cày cuốc">
-                        <div class="image-caption">Góc làm việc quen thuộc thâu đêm suốt sáng của các "chiến thần" cày game. (Ảnh minh họa)</div>
-                    </div>
-
-                    <p>Theo nguồn tin thân cận từ các chiến hữu cùng, lý do sâu xa dẫn đến bước ngoặt chấn động này xuất phát từ việc Vinh đã cày cuốc không biết ngày tháng. Từ những buổi trốn tiết học thể dục, lén lút vào quán net góc phố cho đến việc thức trắng đêm để leo rank, Vinh đã chạm đến giới hạn chịu đựng của bản thân và cả... phụ huynh.</p>
-
-                    <div class="quote-box">
-                        "Nó ôm máy tính nhiều hơn ôm sách vở. Bảo đi học thì kêu đau bụng, nhưng cứ nhắc đến chuyện vào trận là mắt sáng rực lên. Giờ nó tuyên bố nghỉ học để chuyên tâm chiến gem khiến gia đình bó tay toàn tập!" — Một người bạn học cùng lớp chia sẻ trong tiếng thở dài.
-                    </div>
-
-                    <h2>Hồi chuông cảnh tỉnh cho phong trào "ảo tưởng sức mạnh"</h2>
-
-                    <p>Ngay sau khi câu chuyện được lan truyền trên các hội nhóm, cộng đồng mạng đã chia làm nhiều luồng ý kiến trái chiều. Một mặt, nhiều cư dân mạng không khỏi phì cười trước độ "chịu chơi" và sự lầy lội của nam sinh này. Mặt khác, phần lớn ý kiến đều bày tỏ sự tiếc nuối và lên án lối sống thiếu định hướng, dễ bị thế giới ảo cuốn đi.</p>
-
-                    <p>Hiện tại, gia đình Văn Vinh đang tìm mọi biện pháp cứng rắn để "kéo em về thực tại", tránh việc tương lai bị chôn vùi bên cạnh màn hình máy tính và những trận đấu hạng vô tận.</p>
-                </div>
-
-                <div class="article-tags">
-                    <strong>Từ khóa:</strong> 
-                    <a href="#" class="tag">Văn Vinh</a>
-                    <a href="#" class="tag">Nghiện gem</a>
-                    <a href="#" class="tag">Bỏ học</a>
-                    <a href="#" class="tag">Tin nóng mạng xã hội</a>
-                </div>
-            </main>
-
-            <aside class="sidebar">
-                <div class="sidebar-title">Tin đọc nhiều nhất</div>
-                
-                <div class="sidebar-item">
-                    <a href="#">Top 10 bí quyết cai nghiện game cấp tốc cho thanh thiếu niên thời đại số</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="#">Học sinh cấp 3 trốn học đi net xuyên biên giới: Lời cảnh tỉnh cho các bậc phụ huynh</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="#">"Chiến thần leo rank" và cái kết đắng ngắt khi bảng điểm mùa này toàn gạch đỏ</a>
-                </div>
-                <div class="sidebar-item">
-                    <a href="#">Cộng đồng mạng truy tìm tung tích "Văn Vinh" – Nhân vật hot nhất mạng xã hội hôm nay</a>
-                </div>
-            </aside>
-
+        <!-- Menu Drawer Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3 shadow-lg">
+            <button onclick="showSection('home'); toggleMobileMenu();" class="block w-full text-left font-bold text-gray-700 py-2 hover:text-pink-500">Trang Chủ</button>
+            <button onclick="showSection('shop'); toggleMobileMenu();" class="block w-full text-left font-bold text-gray-700 py-2 hover:text-pink-500">Cửa Hàng</button>
+            <button onclick="showSection('deposit'); toggleMobileMenu();" class="block w-full text-left font-bold text-pink-600 py-2 flex items-center gap-2"><i class="fa-solid fa-wallet"></i> Nạp Tiền Ngay</button>
+            <button onclick="showSection('history'); toggleMobileMenu();" class="block w-full text-left font-bold text-gray-700 py-2 hover:text-pink-500">Đơn Hàng Đã Mua</button>
+            <div id="mobile-admin-link" class="hidden">
+                <button onclick="showSection('admin'); toggleMobileMenu();" class="block w-full text-left font-bold text-purple-600 py-2"><i class="fa-solid fa-shield-halved"></i> Quản Trị Viên</button>
+            </div>
+            <div id="mobile-auth-section" class="pt-2 border-t border-gray-100"></div>
         </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- 1. Trang chủ -->
+        <section id="home-section" class="space-y-12">
+            <div id="dynamic-hero-banner" class="hero-banner text-white rounded-3xl p-8 sm:p-16 shadow-2xl overflow-hidden flex items-center min-h-[400px]">
+                <div class="relative z-20 max-w-2xl space-y-4">
+                    <span id="banner-tag" class="bg-pink-500 text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md">✨ Siêu Sale Otaku 2026</span>
+                    <h1 id="banner-title" class="text-3xl sm:text-5xl font-black leading-tight">Thế Giới Figure & Manga Đỉnh Cao</h1>
+                    <p id="banner-desc" class="text-gray-200 text-sm sm:text-base font-medium">Sở hữu những món đồ sưu tầm anime chính hãng, chất lượng sắc nét với giá tốt nhất.</p>
+                    <div class="pt-2 flex gap-3">
+                        <button onclick="showSection('shop')" class="bg-white text-gray-900 font-extrabold px-6 py-3.5 rounded-2xl shadow-xl hover:bg-pink-500 hover:text-white transition">Khám Phá Ngay</button>
+                        <button onclick="showSection('deposit')" class="bg-pink-600 text-white font-extrabold px-6 py-3.5 rounded-2xl shadow-xl hover:bg-pink-700 transition">Nạp Tiền Ví</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Sản Phẩm Nổi Bật</h2>
+                <div id="featured-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- 2. Cửa hàng -->
+        <section id="shop-section" class="hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-extrabold text-gray-800">Kho Hàng Anime</h2>
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    <input type="text" id="search-input" placeholder="Tìm kiếm figure, mô hình..." oninput="filterProducts()" class="pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl w-full focus:outline-none focus:ring-2 focus:ring-pink-400 font-medium">
+                </div>
+            </div>
+            <div id="shop-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <!-- 3. Giỏ hàng & Thanh toán ví -->
+        <section id="cart-section" class="hidden space-y-6 max-w-4xl mx-auto">
+            <h2 class="text-2xl font-extrabold text-gray-800">Giỏ Hàng Của Bạn</h2>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <div id="cart-items" class="divide-y divide-gray-100"></div>
+                <div class="mt-8 border-t border-gray-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="text-lg font-bold text-gray-700">
+                        Tổng tiền: <span id="cart-total" class="text-pink-600 font-black text-2xl">0 VNĐ</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold px-8 py-4 rounded-2xl shadow-lg shadow-pink-200 hover:opacity-90 transition">Thanh Toán Bằng Số Dư Ví</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Nạp tiền qua QR Ngân hàng -->
+        <section id="deposit-section" class="hidden space-y-6 max-w-xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center space-y-6">
+                <h2 class="text-2xl font-extrabold text-gray-800">Nạp Tiền Vào Ví</h2>
+                <p class="text-gray-500 text-sm">Quét mã QR bên dưới để chuyển khoản. Admin sẽ duyệt cộng tiền vào tài khoản sau vài phút.</p>
+                
+                <div class="bg-pink-50/50 p-6 rounded-3xl inline-block border border-pink-100">
+                    <img id="display-qr-img" src="" alt="QR Ngân hàng" class="w-64 h-64 mx-auto object-contain rounded-2xl shadow-md bg-white p-2">
+                    <p id="display-bank-info" class="mt-4 font-bold text-gray-700 text-sm"></p>
+                </div>
+
+                <form onsubmit="handleCreateDepositRequest(event)" class="space-y-4 text-left">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Số tiền muốn nạp (VNĐ)</label>
+                        <input type="number" id="deposit-amount" required min="10000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="Ví dụ: 100000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Lời nhắn / Mã chuyển khoản</label>
+                        <input type="text" id="deposit-note" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="VD: NAPTIEN TênTàiKhoản">
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold py-3.5 rounded-2xl shadow-lg shadow-pink-200 hover:opacity-90 transition">Đã Chuyển Khoản & Gửi Yêu Cầu</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. Lịch sử đơn hàng đã mua -->
+        <section id="history-section" class="hidden space-y-6 max-w-4xl mx-auto">
+            <h2 class="text-2xl font-extrabold text-gray-800">Lịch Sử Đơn Hàng</h2>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <div id="purchased-history-list" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <!-- 6. Đăng nhập / Đăng ký -->
+        <section id="login-section" class="hidden max-w-md mx-auto py-12">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="flex mb-6 border-b border-gray-100 pb-4">
+                    <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 pb-2 font-extrabold text-pink-600 border-b-2 border-pink-600">Đăng Nhập</button>
+                    <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 pb-2 font-extrabold text-gray-400">Đăng Ký</button>
+                </div>
+                <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
+                        <input type="email" id="login-email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="admin@animeshop.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Mật khẩu</label>
+                        <input type="password" id="login-password" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold py-3.5 rounded-2xl shadow-lg shadow-pink-200 hover:opacity-90 transition">Đăng Nhập</button>
+                </form>
+                <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Họ tên</label>
+                        <input type="text" id="reg-name" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="Otaku VN">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
+                        <input type="email" id="reg-email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="user@domain.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Mật khẩu</label>
+                        <input type="password" id="reg-password" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold py-3.5 rounded-2xl shadow-lg shadow-pink-200 hover:opacity-90 transition">Tạo Tài Khoản</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 7. Trang Quản Trị (Admin Panel VIP) -->
+        <section id="admin-section" class="hidden space-y-8">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 space-y-8">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-4">
+                    <h2 class="text-2xl font-extrabold text-gray-800">Khu Vực Quản Trị Viên</h2>
+                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full">VIP Admin Mode</span>
+                </div>
+
+                <!-- Cài đặt Bot Telegram thông báo đơn hàng -->
+                <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800"><i class="fa-brands fa-telegram text-blue-500"></i> Cấu Hình Bot Telegram Thông Báo Đơn Hàng</h3>
+                    <p class="text-xs text-gray-500">Khi khách mua hàng thành công, bot sẽ tự động nhắn tin thông báo chi tiết vào nhóm/chat Telegram của bạn.</p>
+                    <form onsubmit="handleSaveTelegramConfig(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Telegram Bot Token</label>
+                            <input type="text" id="admin-tele-token" placeholder="VD: 123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Telegram Chat ID</label>
+                            <input type="text" id="admin-tele-chatid" placeholder="VD: -1001234567890 hoặc ID cá nhân" class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div class="md:col-span-2 flex items-center gap-3">
+                            <button type="submit" class="bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-blue-700 transition">Lưu Cấu Hình Telegram</button>
+                            <button type="button" onclick="testTelegramBot()" class="bg-white text-blue-600 border border-blue-200 font-bold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition">Gửi Test Thử Nghiệm</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Cài đặt Banner Trang Chủ -->
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-3xl border border-purple-100 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-image text-purple-500"></i> Tùy Chỉnh Banner Trang Chủ</h3>
+                    <form onsubmit="handleSaveBannerConfig(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Link Ảnh Nền Banner (URL)</label>
+                            <input type="url" id="admin-banner-img" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề nhãn (Tag)</label>
+                            <input type="text" id="admin-banner-tag" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề lớn (Heading)</label>
+                            <input type="text" id="admin-banner-title" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả ngắn</label>
+                            <input type="text" id="admin-banner-desc" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div>
+                            <button type="submit" class="bg-purple-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-purple-700 transition">Cập Nhật Banner</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Cài đặt QR Ngân hàng -->
+                <div class="bg-gray-50 p-6 rounded-3xl border border-gray-200 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-qrcode text-pink-500"></i> Cấu Hình QR & Ngân Hàng Nạp Tiền</h3>
+                    <form onsubmit="handleSaveBankConfig(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Link Ảnh QR Ngân Hàng (URL)</label>
+                            <input type="url" id="admin-qr-url" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Thông tin ngân hàng</label>
+                            <input type="text" id="admin-bank-text" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none">
+                        </div>
+                        <div class="md:col-span-2">
+                            <button type="submit" class="bg-gray-800 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-gray-900 transition">Cập Nhật Cấu Hình QR</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Cài đặt Nhạc Nền Web -->
+                <div class="bg-pink-50 p-6 rounded-3xl border border-pink-100 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-music text-pink-500"></i> Cấu Hình Nhạc Nền Web</h3>
+                    <form onsubmit="handleSaveMusicConfig(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Link File Nhạc MP3 (URL)</label>
+                            <input type="url" id="admin-music-url" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none" placeholder="https://.../music.mp3">
+                        </div>
+                        <div>
+                            <button type="submit" class="bg-pink-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-pink-700 transition">Cập Nhật Nhạc Nền</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Duyệt tiền nạp người dùng -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Danh Sách Yêu Cầu Nạp Tiền Chờ Duyệt</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 border-b border-gray-100 text-sm">
+                                    <th class="p-3">Người dùng</th>
+                                    <th class="p-3">Số tiền</th>
+                                    <th class="p-3">Lời nhắn</th>
+                                    <th class="p-3 text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-deposit-requests" class="divide-y divide-gray-100 text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Thêm sản phẩm -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Thêm Sản Phẩm Mới</h3>
+                    <form onsubmit="handleAddProduct(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-6 rounded-3xl border border-gray-200">
+                        <div><input type="text" id="p-name" placeholder="Tên figure / sản phẩm" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none"></div>
+                        <div><input type="number" id="p-price" placeholder="Giá (VNĐ)" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none"></div>
+                        <div><input type="url" id="p-image" placeholder="Link ảnh sản phẩm" required class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none"></div>
+                        <div class="md:col-span-3">
+                            <button type="submit" class="bg-pink-500 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-pink-600 transition">Thêm Sản Phẩm</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Quản lý danh sách sản phẩm -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Danh Sách Sản Phẩm Hiện Có</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 border-b border-gray-100 text-sm">
+                                    <th class="p-3">Ảnh</th>
+                                    <th class="p-3">Tên sản phẩm</th>
+                                    <th class="p-3">Giá</th>
+                                    <th class="p-3 text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-product-table" class="divide-y divide-gray-100 text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Khung Phát Nhạc Nền Cố Định -->
+    <div id="bg-music-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000;">
+        <audio id="bg-audio" loop>
+            <source id="bg-audio-source" src="https://assets.mixkit.co/music/preview/mixkit-spirit-in-the-woods-139.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="toggleMusic()" id="music-btn" style="background: linear-gradient(to right, #ec4899, #9333ea); color: white; border: none; padding: 12px 18px; border-radius: 9999px; font-weight: bold; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: 'Quicksand', sans-serif; transition: opacity 0.3s;">
+            <i id="music-icon" class="fa-solid fa-volume-xmark"></i> <span id="music-text">Bật Nhạc Nền</span>
+        </button>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Báo điện tử VnExpress Fake - Đọc vui vẻ, giải trí là chính!</p>
-            <p>Trang web mô phỏng giao diện báo chí phục vụ mục đích giải trí hài hước.</p>
-        </div>
+    <footer class="bg-white border-t border-gray-100 mt-20 py-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2026 AnimeShop VIP Platform. All rights reserved.</p>
     </footer>
 
+    <!-- Script Xử Lý Logic -->
+    <script>
+        const defaultProducts = [
+            { id: 1, name: 'Figure Hatsune Miku Ver.2026', price: 450000, image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&auto=format&fit=crop&q=60' },
+            { id: 2, name: 'Mô hình Roronoa Zoro Battle', price: 680000, image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=60' },
+            { id: 3, name: 'Figure Nezuko Kamado Cute', price: 390000, image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=60' },
+            { id: 4, name: 'Mô hình Gojo Satoru Unlimited', price: 750000, image: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=500&auto=format&fit=crop&q=60' }
+        ];
+
+        if (!localStorage.getItem('animeshop_users')) {
+            localStorage.setItem('animeshop_users', JSON.stringify([
+                { name: 'Admin VIP', email: 'admin@animeshop.com', password: '123456', role: 'admin', balance: 5000000 }
+            ]));
+        }
+        if (!localStorage.getItem('animeshop_bank')) {
+            localStorage.setItem('animeshop_bank', JSON.stringify({
+                qrUrl: 'https://api.vietqr.io/image/970436-1038739665-qr_only.jpg?accountName=NGUYEN%20VAN%20A&amount=0&addInfo=NAPTIEN',
+                bankText: 'Vietcombank - 1038739665 - NGUYEN VAN A'
+            }));
+        }
+        if (!localStorage.getItem('animeshop_banner')) {
+            localStorage.setItem('animeshop_banner', JSON.stringify({
+                imageUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200&auto=format&fit=crop&q=80',
+                tag: '✨ Siêu Sale Otaku 2026 VIP',
+                title: 'Thế Giới Figure & Manga Đỉnh Cao',
+                desc: 'Sở hữu những món đồ sưu tầm anime chính hãng, chất lượng cực kỳ sắc nét với giá tốt nhất thị trường.'
+            }));
+        }
+        if (!localStorage.getItem('animeshop_telegram')) {
+            localStorage.setItem('animeshop_telegram', JSON.stringify({ token: '', chatId: '' }));
+        }
+        if (!localStorage.getItem('animeshop_music')) {
+            localStorage.setItem('animeshop_music', JSON.stringify({
+                url: 'https://assets.mixkit.co/music/preview/mixkit-spirit-in-the-woods-139.mp3'
+            }));
+        }
+        if (!localStorage.getItem('animeshop_deposits')) {
+            localStorage.setItem('animeshop_deposits', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('animeshop_purchases')) {
+            localStorage.setItem('animeshop_purchases', JSON.stringify([]));
+        }
+
+        let products = JSON.parse(localStorage.getItem('animeshop_products')) || defaultProducts;
+        let cart = JSON.parse(localStorage.getItem('animeshop_cart')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('animeshop_current_user')) || null;
+        let bankConfig = JSON.parse(localStorage.getItem('animeshop_bank'));
+        let bannerConfig = JSON.parse(localStorage.getItem('animeshop_banner'));
+        let teleConfig = JSON.parse(localStorage.getItem('animeshop_telegram'));
+        let musicConfig = JSON.parse(localStorage.getItem('animeshop_music'));
+        let depositRequests = JSON.parse(localStorage.getItem('animeshop_deposits')) || [];
+        let purchases = JSON.parse(localStorage.getItem('animeshop_purchases')) || [];
+
+        function saveState() {
+            localStorage.setItem('animeshop_products', JSON.stringify(products));
+            localStorage.setItem('animeshop_cart', JSON.stringify(cart));
+            localStorage.setItem('animeshop_current_user', JSON.stringify(currentUser));
+            localStorage.setItem('animeshop_bank', JSON.stringify(bankConfig));
+            localStorage.setItem('animeshop_banner', JSON.stringify(bannerConfig));
+            localStorage.setItem('animeshop_telegram', JSON.stringify(teleConfig));
+            localStorage.setItem('animeshop_music', JSON.stringify(musicConfig));
+            localStorage.setItem('animeshop_deposits', JSON.stringify(depositRequests));
+            localStorage.setItem('animeshop_purchases', JSON.stringify(purchases));
+            updateUI();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars text-lg";
+            } else {
+                icon.className = "fa-solid fa-xmark text-lg";
+            }
+        }
+
+        function showSection(name) {
+            ['home', 'shop', 'cart', 'deposit', 'history', 'login', 'admin'].forEach(sec => {
+                document.getElementById(sec + '-section').classList.add('hidden');
+            });
+            document.getElementById(name + '-section').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (name === 'home') loadBannerUI();
+            if (name === 'shop') renderProducts(products, 'shop-products');
+            if (name === 'cart') renderCartUI();
+            if (name === 'deposit') loadBankUI();
+            if (name === 'history') renderHistoryUI();
+            if (name === 'admin') {
+                renderAdminProducts();
+                renderAdminDeposits();
+                document.getElementById('admin-qr-url').value = bankConfig.qrUrl;
+                document.getElementById('admin-bank-text').value = bankConfig.bankText;
+                document.getElementById('admin-banner-img').value = bannerConfig.imageUrl;
+                document.getElementById('admin-banner-tag').value = bannerConfig.tag;
+                document.getElementById('admin-banner-title').value = bannerConfig.title;
+                document.getElementById('admin-banner-desc').value = bannerConfig.desc;
+                document.getElementById('admin-tele-token').value = teleConfig.token;
+                document.getElementById('admin-tele-chatid').value = teleConfig.chatId;
+                document.getElementById('admin-music-url').value = musicConfig.url;
+            }
+        }
+
+        function loadBannerUI() {
+            const bannerEl = document.getElementById('dynamic-hero-banner');
+            bannerEl.style.backgroundImage = `url('${bannerConfig.imageUrl}')`;
+            document.getElementById('banner-tag').innerText = bannerConfig.tag;
+            document.getElementById('banner-title').innerText = bannerConfig.title;
+            document.getElementById('banner-desc').innerText = bannerConfig.desc;
+        }
+
+        function loadBankUI() {
+            document.getElementById('display-qr-img').src = bankConfig.qrUrl;
+            document.getElementById('display-bank-info').innerText = bankConfig.bankText;
+        }
+
+        function loadMusicUI() {
+            const audio = document.getElementById('bg-audio');
+            const source = document.getElementById('bg-audio-source');
+            if (musicConfig.url && source.src !== musicConfig.url) {
+                source.src = musicConfig.url;
+                audio.load();
+            }
+        }
+
+        function updateUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+
+            const authMenu = document.getElementById('auth-menu');
+            const mobileAuthSection = document.getElementById('mobile-auth-section');
+            const adminNavLink = document.getElementById('admin-nav-link');
+            const mobileAdminLink = document.getElementById('mobile-admin-link');
+            const walletBadge = document.getElementById('wallet-badge');
+
+            if (currentUser) {
+                let users = JSON.parse(localStorage.getItem('animeshop_users'));
+                let freshUser = users.find(u => u.email === currentUser.email) || currentUser;
+                currentUser = freshUser;
+
+                authMenu.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-gray-700">🌸 ${currentUser.name}</span>
+                        <button onclick="handleLogout()" class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-gray-200 transition">Đăng xuất</button>
+                    </div>
+                `;
+                walletBadge.classList.remove('flex');
+                walletBadge.classList.add('flex');
+                document.getElementById('user-balance').innerText = currentUser.balance.toLocaleString();
+
+                mobileAuthSection.innerHTML = `
+                    <div class="py-2 text-sm font-bold text-gray-800">Xin chào, ${currentUser.name}</div>
+                    <button onclick="handleLogout(); toggleMobileMenu();" class="w-full bg-gray-100 text-gray-700 font-bold py-2 rounded-xl text-sm">Đăng Xuất</button>
+                `;
+
+                if (currentUser.role === 'admin') {
+                    adminNavLink.classList.remove('hidden');
+                    mobileAdminLink.classList.remove('hidden');
+                } else {
+                    adminNavLink.classList.add('hidden');
+                    mobileAdminLink.classList.add('hidden');
+                }
+            } else {
+                authMenu.innerHTML = `<button onclick="showSection('login')" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-5 py-2.5 rounded-2xl font-extrabold shadow-lg shadow-pink-200 hover:opacity-90 transition text-sm">Đăng Nhập</button>`;
+                walletBadge.classList.remove('flex');
+                walletBadge.classList.add('hidden');
+                adminNavLink.classList.add('hidden');
+                mobileAdminLink.classList.add('hidden');
+
+                mobileAuthSection.innerHTML = `
+                    <button onclick="showSection('login'); toggleMobileMenu();" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold py-2.5 rounded-xl text-center shadow-md">Đăng Nhập / Đăng Ký</button>
+                `;
+            }
+        }
+
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('form-login').classList.remove('hidden');
+                document.getElementById('form-register').classList.add('hidden');
+                document.getElementById('tab-login-btn').className = "flex-1 pb-2 font-extrabold text-pink-600 border-b-2 border-pink-600";
+                document.getElementById('tab-register-btn').className = "flex-1 pb-2 font-extrabold text-gray-400";
+            } else {
+                document.getElementById('form-login').classList.add('hidden');
+                document.getElementById('form-register').classList.remove('hidden');
+                document.getElementById('tab-register-btn').className = "flex-1 pb-2 font-extrabold text-pink-600 border-b-2 border-pink-600";
+                document.getElementById('tab-login-btn').className = "flex-1 pb-2 font-extrabold text-gray-400";
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            let users = JSON.parse(localStorage.getItem('animeshop_users'));
+            if (users.find(u => u.email === email)) {
+                alert('Email này đã được đăng ký!');
+                return;
+            }
+            users.push({ name, email, password, role: 'customer', balance: 0 });
+            localStorage.setItem('animeshop_users', JSON.stringify(users));
+            alert('Đăng ký thành công!');
+            switchAuthTab('login');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            let users = JSON.parse(localStorage.getItem('animeshop_users'));
+            const user = users.find(u => u.email === email && u.password === password);
+            if (!user) {
+                alert('Sai email hoặc mật khẩu!');
+                return;
+            }
+            currentUser = user;
+            saveState();
+            alert(`Chào mừng trở lại, ${user.name}!`);
+            showSection('home');
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            saveState();
+            showSection('home');
+            alert('Đã đăng xuất.');
+        }
+
+        function renderProducts(list, elementId) {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            if (list.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-gray-400 py-8">Không tìm thấy sản phẩm nào.</p>`;
+                return;
+            }
+            container.innerHTML = list.map(p => `
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition flex flex-col group">
+                    <div class="overflow-hidden relative h-60 bg-gray-50">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-bold text-base text-gray-800 line-clamp-1">${p.name}</h3>
+                            <p class="text-pink-600 font-black text-lg mt-2">${p.price.toLocaleString()} VNĐ</p>
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="mt-4 w-full bg-pink-50 text-pink-600 font-extrabold py-3 rounded-2xl hover:bg-pink-500 hover:text-white transition shadow-sm">Thêm vào giỏ</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const exist = cart.find(item => item.id === id);
+            if (exist) exist.quantity += 1;
+            else cart.push({ ...product, quantity: 1 });
+            saveState();
+            alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+        }
+
+        function renderCartUI() {
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 py-8">Giỏ hàng đang trống.</p>`;
+                document.getElementById('cart-total').innerText = '0 VNĐ';
+                return;
+            }
+            container.innerHTML = cart.map(item => `
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 py-4">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-2xl bg-gray-50">
+                        <div>
+                            <h4 class="font-bold text-gray-800">${item.name}</h4>
+                            <p class="text-pink-600 font-bold text-sm">${item.price.toLocaleString()} VNĐ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center border border-gray-200 rounded-2xl overflow-hidden bg-gray-50">
+                            <button onclick="changeQty(${item.id}, -1)" class="px-3 py-1 hover:bg-gray-200 font-bold">-</button>
+                            <span class="px-4 font-bold">${item.quantity}</span>
+                            <button onclick="changeQty(${item.id}, 1)" class="px-3 py-1 hover:bg-gray-200 font-bold">+</button>
+                        </div>
+                        <button onclick="removeItem(${item.id})" class="text-red-400 hover:text-red-600 font-bold p-2"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = total.toLocaleString() + ' VNĐ';
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+            }
+            saveState();
+            renderCartUI();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveState();
+            renderCartUI();
+        }
+
+        function checkout() {
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập để thanh toán!');
+                showSection('login');
+                return;
+            }
+            if (cart.length === 0) {
+                alert('Giỏ hàng trống!');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (currentUser.balance < total) {
+                alert('Số dư ví của bạn không đủ! Vui lòng nạp thêm tiền.');
+                showSection('deposit');
+                return;
+            }
+
+            currentUser.balance -= total;
+            let users = JSON.parse(localStorage.getItem('animeshop_users'));
+            let uIdx = users.findIndex(u => u.email === currentUser.email);
+            if (uIdx !== -1) {
+                users[uIdx].balance = currentUser.balance;
+                localStorage.setItem('animeshop_users', JSON.stringify(users));
+            }
+
+            const newOrder = {
+                id: 'ORD-' + Date.now(),
+                date: new Date().toLocaleString(),
+                items: [...cart],
+                total: total,
+                buyerName: currentUser.name,
+                buyerEmail: currentUser.email
+            };
+
+            purchases.unshift(newOrder);
+
+            // Gửi thông báo Telegram tự động
+            sendTelegramNotification(newOrder);
+
+            cart = [];
+            saveState();
+            alert('Thanh toán thành công!');
+            showSection('history');
+        }
+
+        // --- HÀM GỬI THÔNG BÁO TELEGRAM ---
+        function sendTelegramNotification(order) {
+            if (!teleConfig.token || !teleConfig.chatId) return;
+
+            let itemsListStr = order.items.map(i => `• ${i.name} (x${i.quantity}) - ${(i.price * i.quantity).toLocaleString()}đ`).join('\n');
+            let message = `🚨 *CÓ ĐƠN HÀNG MỚI THÀNH CÔNG!*\n\n` +
+                          `📦 *Mã đơn:* \`${order.id}\`\n` +
+                          `👤 *Khách hàng:* ${order.buyerName} (${order.buyerEmail})\n` +
+                          `⏰ *Thời gian:* ${order.date}\n\n` +
+                          `🛒 *Sản phẩm mua:*\n${itemsListStr}\n\n` +
+                          `💰 *Tổng tiền:* *${order.total.toLocaleString()} VNĐ*`;
+
+            const url = `https://api.telegram.org/bot${teleConfig.token}/sendMessage`;
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: teleConfig.chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('Đã gửi thông báo Telegram thành công.');
+                } else {
+                    console.error('Lỗi Telegram API:', data);
+                }
+            })
+            .catch(err => console.error('Lỗi kết nối Telegram:', err));
+        }
+
+        function testTelegramBot() {
+            const token = document.getElementById('admin-tele-token').value;
+            const chatId = document.getElementById('admin-tele-chatid').value;
+            if (!token || !chatId) {
+                alert('Vui lòng nhập đủ Token và Chat ID trước khi test!');
+                return;
+            }
+
+            const testMsg = `🔔 *Test Bot Telegram thành công!*\nHệ thống AnimeShop đã kết nối thành công với Bot của bạn.`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: testMsg,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('Gửi tin nhắn test thành công! Hãy kiểm tra Telegram của bạn.');
+                } else {
+                    alert('Gửi thất bại! Vui lòng kiểm tra lại Bot Token hoặc Chat ID.');
+                }
+            })
+            .catch(err => {
+                alert('Lỗi kết nối mạng khi gọi Telegram API.');
+            });
+        }
+
+        function renderHistoryUI() {
+            const container = document.getElementById('purchased-history-list');
+            if (!currentUser) {
+                container.innerHTML = `<p class="text-center text-gray-400 py-8">Vui lòng đăng nhập để xem lịch sử.</p>`;
+                return;
+            }
+            if (purchases.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 py-8">Bạn chưa mua sản phẩm nào.</p>`;
+                return;
+            }
+            container.innerHTML = purchases.map(ord => `
+                <div class="border border-gray-100 rounded-3xl p-6 bg-gray-50/50 space-y-3">
+                    <div class="flex justify-between items-center text-sm border-b border-gray-200 pb-2">
+                        <span class="font-black text-pink-600">Đơn hàng: ${ord.id}</span>
+                        <span class="text-gray-400">${ord.date}</span>
+                    </div>
+                    <div class="space-y-2">
+                        ${ord.items.map(i => `
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="font-medium text-gray-700">${i.name} (x${i.quantity})</span>
+                                <span class="font-bold text-gray-800">${(i.price * i.quantity).toLocaleString()} VNĐ</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="text-right font-extrabold text-gray-800 pt-2 border-t border-gray-200">
+                        Tổng thanh toán: <span class="text-pink-600">${ord.total.toLocaleString()} VNĐ</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleCreateDepositRequest(e) {
+            e.preventDefault();
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập!');
+                showSection('login');
+                return;
+            }
+            const amount = Number(document.getElementById('deposit-amount').value);
+            const note = document.getElementById('deposit-note').value;
+
+            depositRequests.push({
+                id: Date.now(),
+                userEmail: currentUser.email,
+                userName: currentUser.name,
+                amount: amount,
+                note: note,
+                status: 'pending'
+            });
+            saveState();
+            alert('Gửi yêu cầu nạp tiền thành công! Vui lòng chờ Admin duyệt.');
+            document.getElementById('deposit-amount').value = '';
+            document.getElementById('deposit-note').value = '';
+            showSection('home');
+        }
+
+        function filterProducts() {
+            const keyword = document.getElementById('search-input').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+            renderProducts(filtered, 'shop-products');
+        }
+
+        // --- HÀM ĐIỀU KHIỂN NHẠC NỀN ---
+        const audio = document.getElementById('bg-audio');
+        audio.volume = 0.3;
+
+        function toggleMusic() {
+            const musicIcon = document.getElementById('music-icon');
+            const musicText = document.getElementById('music-text');
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fa-solid fa-volume-high";
+                    musicText.innerText = "Tắt Nhạc Nền";
+                }).catch(err => {
+                    console.log("Trình duyệt chặn autoplay:", err);
+                });
+            } else {
+                audio.pause();
+                musicIcon.className = "fa-solid fa-volume-xmark";
+                musicText.innerText = "Bật Nhạc Nền";
+            }
+        }
+
+        // --- SCRIPT HIỆU ỨNG TUYẾT RƠI ---
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const snowflakes = [];
+        const maxSnowflakes = 80;
+
+        for (let i = 0; i < maxSnowflakes; i++) {
+            snowflakes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speed: Math.random() * 1 + 0.5,
+                wind: Math.random() * 0.5 - 0.25,
+                opacity: Math.random() * 0.7 + 0.3
+            });
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+
+            snowflakes.forEach(flake => {
+                ctx.beginPath();
+                ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = "white";
+                ctx.fill();
+
+                flake.y += flake.speed;
+                flake.x += flake.wind;
+
+                if (flake.y > canvas.height) {
+                    flake.y = 0;
+                    flake.x = Math.random() * canvas.width;
+                }
+                if (flake.x > canvas.width || flake.x < 0) {
+                    flake.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(drawSnow);
+        }
+        drawSnow();
+
+        // --- ADMIN ---
+        function handleSaveTelegramConfig(e) {
+            e.preventDefault();
+            teleConfig = {
+                token: document.getElementById('admin-tele-token').value.trim(),
+                chatId: document.getElementById('admin-tele-chatid').value.trim()
+            };
+            saveState();
+            alert('Cập nhật thông tin Bot Telegram thành công!');
+        }
+
+        function handleSaveBannerConfig(e) {
+            e.preventDefault();
+            bannerConfig = {
+                imageUrl: document.getElementById('admin-banner-img').value,
+                tag: document.getElementById('admin-banner-tag').value,
+                title: document.getElementById('admin-banner-title').value,
+                desc: document.getElementById('admin-banner-desc').value
+            };
+            saveState();
+            loadBannerUI();
+            alert('Cập nhật Banner thành công!');
+        }
+
+        function handleSaveBankConfig(e) {
+            e.preventDefault();
+            bankConfig = {
+                qrUrl: document.getElementById('admin-qr-url').value,
+                bankText: document.getElementById('admin-bank-text').value
+            };
+            saveState();
+            alert('Cập nhật QR ngân hàng thành công!');
+        }
+
+        function handleSaveMusicConfig(e) {
+            e.preventDefault();
+            musicConfig = {
+                url: document.getElementById('admin-music-url').value
+            };
+            saveState();
+            loadMusicUI();
+            alert('Cập nhật nhạc nền thành công!');
+        }
+
+        function renderAdminDeposits() {
+            const tbody = document.getElementById('admin-deposit-requests');
+            const pendingReqs = depositRequests.filter(r => r.status === 'pending');
+            if (pendingReqs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400">Không có yêu cầu nạp tiền nào chờ duyệt.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = pendingReqs.map(r => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="p-3 font-bold text-gray-800">${r.userName} <span class="text-xs font-normal text-gray-400">(${r.userEmail})</span></td>
+                    <td class="p-3 text-pink-600 font-extrabold">${r.amount.toLocaleString()} VNĐ</td>
+                    <td class="p-3 text-gray-600">${r.note}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="approveDeposit(${r.id})" class="bg-emerald-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-emerald-600 transition">Duyệt & Cộng Tiền</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function approveDeposit(reqId) {
+            const req = depositRequests.find(r => r.id === reqId);
+            if (!req) return;
+
+            let users = JSON.parse(localStorage.getItem('animeshop_users'));
+            let targetUser = users.find(u => u.email === req.userEmail);
+            if (targetUser) {
+                targetUser.balance += req.amount;
+                localStorage.setItem('animeshop_users', JSON.stringify(users));
+            }
+
+            req.status = 'approved';
+            saveState();
+            renderAdminDeposits();
+            alert(`Đã duyệt ${req.amount.toLocaleString()} VNĐ cho tài khoản ${req.userName}!`);
+        }
+
+        function handleAddProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const price = Number(document.getElementById('p-price').value);
+            const image = document.getElementById('p-image').value;
+
+            products.push({ id: Date.now(), name, price, image });
+            saveState();
+            renderAdminProducts();
+            renderProducts(products.slice(0, 4), 'featured-products');
+            e.target.reset();
+            alert('Thêm sản phẩm thành công!');
+        }
+
+        function renderAdminProducts() {
+            const tbody = document.getElementById('admin-product-table');
+            tbody.innerHTML = products.map(p => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="p-3"><img src="${p.image}" class="w-12 h-12 object-cover rounded-xl bg-gray-100"></td>
+                    <td class="p-3 font-bold text-gray-800">${p.name}</td>
+                    <td class="p-3 text-pink-600 font-extrabold">${p.price.toLocaleString()} VNĐ</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteProduct(${p.id})" class="bg-red-50 text-red-500 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-red-100 transition">Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+                products = products.filter(p => p.id !== id);
+                saveState();
+                renderAdminProducts();
+                renderProducts(products.slice(0, 4), 'featured-products');
+            }
+        }
+
+        updateUI();
+        loadBannerUI();
+        loadMusicUI();
+        renderProducts(products.slice(0, 4), 'featured-products');
+    </script>
 </body>
 </html>
-
-```
